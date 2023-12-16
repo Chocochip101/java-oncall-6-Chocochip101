@@ -37,33 +37,62 @@ public class Workers {
         WeekDay dayIndex = schedule.getWeekDay();
         for (int day = 1; day <= schedule.getMonth().getMaxDay(); ++day) {
             if (isHoliday(schedule.getMonth(), dayIndex, day)) {
-                if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
-                        .equals(weekEndWorkers.checkNextPerson())) {
-                    weekEndWorkers.changeOrder();
-                }
-                workerArrangement.add(weekEndWorkers.getNextPerson());
-                weekDays.add(dayIndex);
+                handleHoliday(schedule.getMonth(), workerArrangement, weekDays, dayIndex, day);
                 dayIndex = dayIndex.getNextWeekDay();
                 continue;
             }
-            if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
-                    .equals(weekDayWorkers.checkNextPerson())) {
-                weekDayWorkers.changeOrder();
-            }
-            workerArrangement.add(weekDayWorkers.getNextPerson());
-            weekDays.add(dayIndex);
+            handleWeekDay(workerArrangement, weekDays, dayIndex);
             dayIndex = dayIndex.getNextWeekDay();
         }
+
         return new WorkArrangement(schedule, workerArrangement, weekDays);
     }
 
+    private void handleHoliday(
+            Month month, List<String> workerArrangement, List<WeekDay> weekDays, WeekDay dayIndex, int day) {
+        Worker holidayWorkers = getWorker(month, dayIndex, day);
+
+        if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
+                .equals(holidayWorkers.checkNextPerson())) {
+            holidayWorkers.changeOrder();
+        }
+
+        workerArrangement.add(holidayWorkers.getNextPerson());
+        weekDays.add(dayIndex);
+    }
+
+    private Worker getWorker(Month month, WeekDay dayIndex, int day) {
+        if (isHoliday(month, dayIndex, day)) {
+            return weekEndWorkers;
+        }
+        return weekDayWorkers;
+
+    }
+
+    private void handleWeekDay(List<String> workerArrangement, List<WeekDay> weekDays, WeekDay dayIndex) {
+        Worker currentWorkers = weekDayWorkers;
+
+        if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
+                .equals(currentWorkers.checkNextPerson())) {
+            currentWorkers.changeOrder();
+        }
+
+        workerArrangement.add(currentWorkers.getNextPerson());
+        weekDays.add(dayIndex);
+    }
+
+
     private boolean isHoliday(Month month, WeekDay dayIndex, int day) {
-        if (dayIndex == WeekDay.Saturday || dayIndex == WeekDay.Sunday) {
+        if (isWeekEnd(dayIndex)) {
             return true;
         }
         if (DateUtil.isLegalHoliday(month, day)) {
             return true;
         }
         return false;
+    }
+
+    private boolean isWeekEnd(WeekDay day) {
+        return day == WeekDay.Saturday || day == WeekDay.Sunday;
     }
 }
