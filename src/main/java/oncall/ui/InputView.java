@@ -13,4 +13,11 @@ public class InputView {
         InputValidation.validIsNumber(input.get(Config.INPUT_MONTH_PART));
         return input;
     }
+
+    public static List<String> getWeekDayNicknames() {
+        List<String> nicknames = Arrays.stream(Console.readLine().split(",")).map(String::trim)
+                .collect(Collectors.toList());
+        InputValidation.validNickNames(nicknames);
+        return nicknames;
+    }
 }
