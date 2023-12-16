@@ -1,7 +1,9 @@
 package oncall;
 
+import oncall.scheduler.OnCallScheduler;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        new OnCallScheduler().start();
     }
 }
