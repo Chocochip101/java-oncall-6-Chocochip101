@@ -1,5 +1,7 @@
 package oncall.domain;
 
+import static oncall.global.Config.MIN_WORKER_SIZE;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +25,7 @@ public class Workers {
         Set<String> workers = new HashSet<>();
         workers.addAll(weekDayWorkers);
         workers.addAll(weekEndWorkers);
-        if (workers.size() > Config.MAX_WORKER_SIZE) {
+        if (workers.size() > Config.MAX_WORKER_SIZE || workers.size() < MIN_WORKER_SIZE) {
             throw new IllegalArgumentException();
         }
     }
