@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import oncall.domain.date.Month;
 import oncall.domain.date.WeekDay;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ class ScheduleTest {
         Schedule schedule = new Schedule(input);
 
         //then
-        assertEquals(schedule.getMonth(), 3);
+        assertEquals(schedule.getMonth(), Month.Mar);
         assertEquals(schedule.getWeekDay(), WeekDay.Monday);
     }
 
