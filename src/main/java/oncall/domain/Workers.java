@@ -1,5 +1,6 @@
 package oncall.domain;
 
+import static oncall.global.Config.INITIAL_INDEX;
 import static oncall.global.Config.MIN_WORKER_SIZE;
 
 import java.util.ArrayList;
@@ -52,8 +53,8 @@ public class Workers {
             Month month, List<String> workerArrangement, List<WeekDay> weekDays, WeekDay dayIndex, int day) {
         Worker holidayWorkers = getWorker(month, dayIndex, day);
 
-        if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
-                .equals(holidayWorkers.checkNextPerson())) {
+        if (workerArrangement.size() > INITIAL_INDEX
+                && workerArrangement.get(workerArrangement.size() - 1).equals(holidayWorkers.checkNextPerson())) {
             holidayWorkers.changeOrder();
         }
 
@@ -72,8 +73,8 @@ public class Workers {
     private void handleWeekDay(List<String> workerArrangement, List<WeekDay> weekDays, WeekDay dayIndex) {
         Worker currentWorkers = weekDayWorkers;
 
-        if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
-                .equals(currentWorkers.checkNextPerson())) {
+        if (workerArrangement.size() > INITIAL_INDEX &&
+                workerArrangement.get(workerArrangement.size() - 1).equals(currentWorkers.checkNextPerson())) {
             currentWorkers.changeOrder();
         }
 
