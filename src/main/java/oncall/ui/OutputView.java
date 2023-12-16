@@ -1,14 +1,16 @@
 package oncall.ui;
 
 import static oncall.ui.OutputCommand.ERROR_PREFIX;
+import static oncall.ui.OutputCommand.HOLIDAY_ARRANGEMENT_OUTPUT;
 import static oncall.ui.OutputCommand.MONTH_START_DATE_INPUT_COMMAND;
+import static oncall.ui.OutputCommand.WEEKDAY_ARRANGEMENT_OUTPUT;
 import static oncall.ui.OutputCommand.WEEKDAY_NICKNAME_INPUT_COMMAND;
 import static oncall.ui.OutputCommand.WEEKEND_NICKNAME_INPUT_COMMAND;
-import static oncall.ui.OutputCommand.WORK_ARRANGEMENT_OUTPUT;
 
 import oncall.domain.WorkArrangement;
 import oncall.domain.date.Month;
 import oncall.domain.date.WeekDay;
+import oncall.global.DateUtil;
 
 public class OutputView {
     public static void printMonthStartDateInput() {
@@ -35,7 +37,13 @@ public class OutputView {
     }
 
     private static void printWorker(Month month, int day, WeekDay weekDay, String name) {
-        System.out.println(String.format(WORK_ARRANGEMENT_OUTPUT, month.getMonth(), day, weekDay.getWeekday(), name));
+        if (DateUtil.isLegalHoliday(month, day) && !DateUtil.isWeekEnd(weekDay)) {
+            System.out.println(
+                    String.format(HOLIDAY_ARRANGEMENT_OUTPUT, month.getMonth(), day, weekDay.getWeekday(), name));
+            return;
+        }
+        System.out.println(
+                String.format(WEEKDAY_ARRANGEMENT_OUTPUT, month.getMonth(), day, weekDay.getWeekday(), name));
     }
 
     private static void printNewLine() {

@@ -34,4 +34,11 @@ public class DateUtil {
         }
         return false;
     }
+
+    public static boolean isWeekEnd(WeekDay weekDay) {
+        if (weekDay == WeekDay.Saturday || weekDay == WeekDay.Sunday) {
+            return true;
+        }
+        return false;
+    }
 }
