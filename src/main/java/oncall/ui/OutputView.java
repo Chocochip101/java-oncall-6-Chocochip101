@@ -24,6 +24,7 @@ public class OutputView {
     }
 
     public static void printWorkersArrangement(WorkArrangement workArrangement) {
+        printNewLine();
         for (int day = 1; day <= workArrangement.getSchedule().getMonth().getMaxDay(); ++day) {
             printWorker(
                     workArrangement.getSchedule().getMonth(),
@@ -35,6 +36,10 @@ public class OutputView {
 
     private static void printWorker(Month month, int day, WeekDay weekDay, String name) {
         System.out.println(String.format(WORK_ARRANGEMENT_OUTPUT, month.getMonth(), day, weekDay.getWeekday(), name));
+    }
+
+    private static void printNewLine() {
+        System.out.println();
     }
 
     public static void printErrorMessage(String errorMessage) {
