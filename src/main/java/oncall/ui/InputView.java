@@ -20,4 +20,11 @@ public class InputView {
         InputValidation.validNickNames(nicknames);
         return nicknames;
     }
+
+    public static List<String> getWeekEndNicknames() {
+        List<String> nicknames = Arrays.stream(Console.readLine().split(",")).map(String::trim)
+                .collect(Collectors.toList());
+        InputValidation.validNickNames(nicknames);
+        return nicknames;
+    }
 }

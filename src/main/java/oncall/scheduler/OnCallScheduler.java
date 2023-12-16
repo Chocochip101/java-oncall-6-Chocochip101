@@ -8,16 +8,18 @@ import oncall.ui.OutputView;
 public class OnCallScheduler {
     public void start() {
         getUserMonthStartDate();
-        getWeekDayWorkers();
+        getWorkers();
     }
 
-    private static List<String> getWeekDayWorkers() {
+    private static void getWorkers() {
         try {
             OutputView.printGetWeekDayNickNames();
-            return InputView.getWeekDayNicknames();
+            InputView.getWeekDayNicknames();
+            OutputView.printGetWeekEndNickNames();
+            InputView.getWeekEndNicknames();
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
-            return getWeekDayWorkers();
+            getWorkers();
         }
     }
 
