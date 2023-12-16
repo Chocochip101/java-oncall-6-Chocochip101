@@ -35,12 +35,19 @@ public class Workers {
         WeekDay dayIndex = schedule.getWeekDay();
         for (int day = 1; day <= schedule.getMonth().getMaxDay(); ++day) {
             if (isHoliday(schedule.getMonth(), dayIndex, day)) {
+                if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
+                        .equals(weekEndWorkers.checkNextPerson())) {
+                    weekEndWorkers.changeOrder();
+                }
                 workerArrangement.add(weekEndWorkers.getNextPerson());
                 weekDays.add(dayIndex);
                 dayIndex = dayIndex.getNextWeekDay();
                 continue;
             }
-
+            if (workerArrangement.size() > 0 && workerArrangement.get(workerArrangement.size() - 1)
+                    .equals(weekDayWorkers.checkNextPerson())) {
+                weekDayWorkers.changeOrder();
+            }
             workerArrangement.add(weekDayWorkers.getNextPerson());
             weekDays.add(dayIndex);
             dayIndex = dayIndex.getNextWeekDay();
