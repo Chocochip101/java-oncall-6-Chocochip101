@@ -13,14 +13,22 @@ public class OnCallScheduler {
 
     private static void getWorkers() {
         try {
-            OutputView.printGetWeekDayNickNames();
-            InputView.getWeekDayNicknames();
-            OutputView.printGetWeekEndNickNames();
-            InputView.getWeekEndNicknames();
+            getWeekDayWorker();
+            getWeekEndWorker();
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             getWorkers();
         }
+    }
+
+    private static void getWeekEndWorker() {
+        OutputView.printGetWeekEndNickNames();
+        InputView.getWeekEndNicknames();
+    }
+
+    private static void getWeekDayWorker() {
+        OutputView.printGetWeekDayNickNames();
+        InputView.getWeekDayNicknames();
     }
 
     private static Schedule getUserMonthStartDate() {
