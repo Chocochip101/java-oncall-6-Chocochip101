@@ -2,6 +2,7 @@ package oncall.scheduler;
 
 import java.util.List;
 import oncall.domain.Schedule;
+import oncall.domain.Workers;
 import oncall.ui.InputView;
 import oncall.ui.OutputView;
 
@@ -11,24 +12,23 @@ public class OnCallScheduler {
         getWorkers();
     }
 
-    private static void getWorkers() {
+    private static Workers getWorkers() {
         try {
-            getWeekDayWorker();
-            getWeekEndWorker();
+            return new Workers(getWeekDayWorker(), getWeekEndWorker());
         } catch (IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
-            getWorkers();
+            return getWorkers();
         }
     }
 
-    private static void getWeekEndWorker() {
+    private static List<String> getWeekEndWorker() {
         OutputView.printGetWeekEndNickNames();
-        InputView.getWeekEndNicknames();
+        return InputView.getWeekEndNicknames();
     }
 
-    private static void getWeekDayWorker() {
+    private static List<String> getWeekDayWorker() {
         OutputView.printGetWeekDayNickNames();
-        InputView.getWeekDayNicknames();
+        return InputView.getWeekDayNicknames();
     }
 
     private static Schedule getUserMonthStartDate() {

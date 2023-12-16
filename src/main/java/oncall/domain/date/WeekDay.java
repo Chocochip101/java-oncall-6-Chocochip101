@@ -8,7 +8,7 @@ public enum WeekDay {
     Friday("금"),
     Saturday("토"),
     Sunday("일");
-    private String weekday;
+    private final String weekday;
 
     WeekDay(String weekday) {
         this.weekday = weekday;
