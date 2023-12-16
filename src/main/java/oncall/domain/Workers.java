@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import oncall.domain.date.WeekDay;
 import oncall.global.Config;
 
 public class Workers {
@@ -23,5 +24,17 @@ public class Workers {
         if (workers.size() > Config.MAX_WORKER_SIZE) {
             throw new IllegalArgumentException();
         }
+    }
+
+    public WorkArrangement arrange(Schedule schedule) {
+        List<String> workerArrangement = new ArrayList<>();
+        List<WeekDay> weekDays = new ArrayList<>();
+
+        WeekDay dayIndex = schedule.getWeekDay();
+        for (int day = 1; day <= schedule.getMonth().getMaxDay(); ++day) {
+            workerArrangement.add("기호");
+            weekDays.add(dayIndex);
+        }
+        return new WorkArrangement(schedule, workerArrangement, weekDays);
     }
 }

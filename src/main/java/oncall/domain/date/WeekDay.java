@@ -17,4 +17,10 @@ public enum WeekDay {
     public String getWeekday() {
         return weekday;
     }
+
+    public WeekDay getNextWeekDay() {
+        int currentIndex = this.ordinal();
+        int nextIndex = (currentIndex + 1) % WeekDay.values().length;
+        return WeekDay.values()[nextIndex];
+    }
 }

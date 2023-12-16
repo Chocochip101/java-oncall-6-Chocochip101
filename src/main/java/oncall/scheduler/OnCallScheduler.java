@@ -8,8 +8,9 @@ import oncall.ui.OutputView;
 
 public class OnCallScheduler {
     public void start() {
-        getUserMonthStartDate();
-        getWorkers();
+        Schedule schedule = getUserMonthStartDate();
+        Workers workers = getWorkers();
+        OutputView.printWorkersArrangement(workers.arrange(schedule));
     }
 
     private static Workers getWorkers() {
